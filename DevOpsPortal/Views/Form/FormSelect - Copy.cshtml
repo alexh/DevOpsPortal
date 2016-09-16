@@ -1,0 +1,55 @@
+﻿@model DevOpsPortal.Models.FormSelectViewModel
+
+@{
+    ViewBag.Title = "Form Select";
+}
+
+<link href="~/styles/FormSelect.css" rel="stylesheet" />
+
+
+<div id="Header">
+    <label for="Form">Form Selection:</label>
+    <select>
+        <option selected disabled>Choose here</option>
+        @if (Model.CanAccessDeploy) {
+            <option>Deployment (App Only)</option>
+            <option>Deployment (SQL Only)</option>
+            <option>Deployment (App + SQL Only)</option>
+        }
+        <option disabled>General Help (Coming Soon)</option>
+        <option disabled>CI/CD Automation (Coming Soon)</option>
+    </select>
+</div>
+
+
+<hr />
+
+
+
+@if (Model.CanAccessDeploy) {
+    <div align="center" class="access top-link"><a class="access" href="../Form/CodeDeployRequest">Deployment (App Only)</a></div>
+
+
+    <div align="center" class="access link"><a class="access" href="../Form/DbDeployRequest">Deployment (SQL Only)</a></div>
+
+
+    <div align="center" class="access link"><a class="access" href="../Form/FullRequest">Deployment (App + SQL)</a></div>
+
+} else {
+
+    <div align="center" class="no-access top-link">Deployment (App Only) <span class="badge badge-important">No Access</span> </div>
+
+
+    <div align="center" class="no-access link">Deployment (SQL Only) <span class="badge badge-important">No Access</span></div>
+
+
+    <div align="center" class="no-access link">Deployment (App + SQL) <span class="badge badge-important">No Access</span></div>
+
+}
+
+
+
+<div class="dead link" align="center">General Help <span class="badge">Coming Soon</span></div>
+
+<div class="dead link" align="center">CI/CD Automation<span class="badge">Coming Soon</span></div>
+

@@ -1,0 +1,13 @@
+﻿@model DevOpsPortal.Models.ADUserData
+
+
+<div id="section-title">Active Directory Data</div>
+<dl class="dl-horizontal">
+    <dt id="details">Display Name:</dt>
+    <dd id="details">@(Model.DisplayName)</dd>
+    <dt id="details">Username:</dt>
+    <dd id="details">@(Model.Name)</dd>
+    <dt id="details">Email:</dt>
+    <dd id="details"><a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></dd>
+</dl>
+<hr />

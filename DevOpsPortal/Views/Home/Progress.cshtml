@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DevOpsPortal.Models.Progress>
+<div class="row" id="teams">
+
+
+    @foreach (DevOpsPortal.Models.Progress team in Model) {
+        //save total percent for this team
+        int totalPercent = team.TotalPercent;
+
+        <div class="col-md-3">
+            <div id="team-panel" class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <h4 id="team-header">
+                            <a href="~/Applications/Index/?t=@team.Name">
+                                @(team.Name.Equals("InternalSolutions") ? "Internal Solutions" : team.Name) - @team.AutomatedCount / @team.TotalCount
+                            </a>
+                            <span id="expand-button" class="btn pull-right fa fa-angle-down fa-4x" data-toggle="collapse" href="#@team.Name-bars" aria-expanded="false" aria-controls="@team.Name-bars">
+                            </span>
+                        </h4>
+
+                    </div>
+                    <hr />
+                    <div class="progress mbn">
+                        <div role="progressbar" aria-valuenow="@team.AutomatedCount" aria-valuemin="0" aria-valuemax="@team.TotalCount"
+                             style="width:  @(totalPercent)%;" class="progress-bar @((totalPercent < 40) ? "progress-bar-danger" : ((totalPercent < 70) ? "progress-bar-warning" : "progress-bar-success"))">
+
+                            <span class="sr-only">@(totalPercent)% Complete</span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="collapse" id="@team.Name-bars">
+                        <div class="panel-body">
+                            <h4>
+                                <a href="~/Applications/Index/?e=Production&t=@team.Name">
+                                    Production - @((team.ProductionPercent == -1) ? "None in Environment" : team.ProductionPercent.ToString() + "% - " + team.ProductionAutomatedCount + " out of " + team.ProductionCount)
+                                </a>
+                            </h4>
+                            <div class="progress mbn" style="max-height: 14px; min-height:14px">
+                                <div role="progressbar" aria-valuenow="@team.ProductionAutomatedCount" aria-valuemin="0" aria-valuemax="@(team.ProductionCount)"
+                                     style="width:  @(team.ProductionPercent)%;" class="progress-bar @((team.ProductionPercent < 40) ? "progress-bar-danger" : ((team.ProductionPercent < 70) ? "progress-bar-warning" : "progress-bar-success"))">
+
+                                    <span class="sr-only">@(team.ProductionPercent)% Complete</span>
+                                </div>
+                            </div>
+
+                            <h4>
+                                <a href="~/Applications/Index/?e=QTS&t=@team.Name">
+                                    QTS - @((team.QTSPercent == -1) ? "None in Environment" : @team.QTSPercent.ToString() + "% - " + team.QTSAutomatedCount + " out of " + team.QTSCount)
+                                </a>
+                            </h4>
+                            <div class="progress mbn" style="max-height: 14px; min-height:14px">
+                                <div role="progressbar" aria-valuenow="@team.QTSAutomatedCount" aria-valuemin="0" aria-valuemax="@(team.QTSCount)"
+                                     style="width:  @(team.QTSPercent)%;" class="progress-bar @((team.QTSPercent < 40) ? "progress-bar-danger" : ((team.QTSPercent < 70) ? "progress-bar-warning" : "progress-bar-success"))">
+
+                                    <span class="sr-only">@(team.QTSPercent)% Complete</span>
+                                </div>
+                            </div>
+
+
+                            <h4>
+                                <a href="~/Applications/Index/?e=QA&t=@team.Name">
+                                    QA - @((team.QAPercent == -1) ? "None in Environment" : @team.QAPercent.ToString() + "% - " + team.QAAutomatedCount + " out of " + team.QACount)
+                                </a>
+                            </h4>
+                            <div class="progress mbn" style="max-height: 14px; min-height:14px">
+                                <div role="progressbar" aria-valuenow="@team.QAAutomatedCount" aria-va aria-valuemin="0" aria-valuemax="@(team.QACount)"
+                                     style="width:  @(team.QAPercent)%;" class="progress-bar @((team.QAPercent < 40) ? "progress-bar-danger" : ((team.QAPercent < 70) ? "progress-bar-warning" : "progress-bar-success"))">
+
+
+
+                                    <span class="sr-only">@(team.QAPercent)% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

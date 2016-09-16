@@ -1,0 +1,128 @@
+﻿@model DevOpsPortal.Models.Server
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Server</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComputerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComputerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IPAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SerialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalMemory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalMemory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CPUSockets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPUSockets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CPUCoresPerSocket)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPUCoresPerSocket)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Drives)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Drives)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProbeSiteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProbeSiteName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateImported)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateImported)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdated)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

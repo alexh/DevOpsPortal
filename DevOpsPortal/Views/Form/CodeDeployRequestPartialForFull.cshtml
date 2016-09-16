@@ -1,0 +1,412 @@
+﻿@model DevOpsPortal.Models.FullRequestViewModel
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="row">
+    <div class="col-md-6">
+
+
+
+        <!--User-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-user"></i>
+                @Html.HiddenFor(model => model.User, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.Editor("User", "Test Test", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.UserDisplayName } })
+            </div>
+            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+        </div>
+
+        <!--Team-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Team, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-users"></i>
+                @Html.DropDownListFor(m => m.Team, (SelectList) ViewBag.TeamSelectList, new { @class = "form-control", @onchange = "FillDropDowns()" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
+        </div>
+
+        <!--Application-->
+        <div class="form-group">
+            <label class="control-label" for="AppName">Application Name</label>
+            <div class="input-icon right">
+                <i class="fa fa-code"></i>
+                @Html.DropDownListFor(m => m.AppName,
+                                new SelectList(Enumerable.Empty<SelectListItem>(), "EnvName", "EnvName"),
+                                "Select Application",
+                                new { @class = "form-control", @onchange = "ApplicationUpdate()" })<SelectListItem>
+            </div>
+            @Html.ValidationMessageFor(model => model.AppName, "", new { @class = "text-danger" })
+            <button type="button" id="AppButton" class="btn btn-lightblue btn-sm" onclick="AppButtonClicked()">View Request History</button>
+
+        </div>
+
+        <!--Environment-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Environment, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-server"></i>
+                @Html.DropDownListFor(m => m.Environment,
+                                new SelectList(Enumerable.Empty<SelectListItem>(), "EnvName", "EnvName"),
+                                "Select Environment",
+                                new { @class = "form-control", @onchange = "EnvUpdate()" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Environment, "", new { @class = "text-danger" })
+        </div>
+
+
+
+
+    </div>
+    <div class="col-md-6">
+
+
+        <!--Jenkins Build-->
+        <div class="form-group">
+            <label class="control-label" for="JenkinsBuild">Jenkins Build Number</label>
+            <div class="input-icon right">
+                <i class="fa fa-cube"></i>
+                @Html.EditorFor(model => model.JenkinsBuild, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.JenkinsBuild, "", new { @class = "text-danger" })
+        </div>
+
+        <!--DI Number-->
+        <div class="form-group">
+            <label class="control-label" for="DINumber">DI Number</label>
+            <div class="input-icon right">
+                <i class="fa fa-exclamation-triangle"></i>
+                @Html.EditorFor(model => model.DINumber, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.DINumber, "", new { @class = "text-danger" })
+        </div>
+
+
+        <!--TFSWorkItems-->
+        <div class="form-group">
+            <label class="control-label" for="TFSWorkItems">TFS Work Items</label>
+            <div class="input-icon right">
+                <i class="fa fa-cube"></i>
+                @Html.EditorFor(model => model.TFSWorkItems, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.TFSWorkItems, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div id="DateTime" style="display:none;">
+
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <!--Date-->
+                    <div class="form-group">
+                        <label class="control-label" for="DeployDateTimeNotNull" text="Deployment Date">Deploy Date</label>
+                        <div class="input-icon right">
+                            <i class="fa fa-calendar"></i>
+                            @Html.EditorFor(model => model.DeployDateTimeNotNull, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DeployDateTimeNotNull, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <!--Time-->
+                    <div class="form-group">
+                        <label class="control-label" for="DeployTime" text="Deployment Date">Deploy Time</label>
+                        <div class="input-icon right">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        @Html.DropDownListFor(model => model.DeployTime, Enumerable.Empty<SelectListItem>(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<hr />
+
+<!--QA Tester-->
+<div class="form-group">
+    <label class="control-label" for="QATester" text="QA Tester">QA Tester</label>
+    <div class="input-icon right">
+        @Html.EditorFor(model => model.QATester, new { htmlAttributes = new { @class = "form-control", @id = "QAtester" } })
+    </div>
+    @Html.ValidationMessageFor(model => model.QATester, "", new { @class = "text-danger" })
+</div>
+
+<div id="QAQuestions" style="display:none;">
+
+    <!--A QA field was left null-->
+    @if (ViewBag.QAError != null && ViewBag.QAError) {
+        <div class="alert alert-danger">
+            Please fill out <strong>all</strong> questions relating to QA if you mark this application as not testable in QA.
+        </div>
+
+    }
+
+    <!--Testable in QA-->
+    <div class="form-group">
+        <div id="QA-label">Is this application testable in QA?</div>
+        <span>
+            @*@Html.CheckBoxFor(m => m.TestableInQABool, new { @checked = true, @onchange = "QACheck()", id = "TestableInQABool" })*@
+            Yes: @Html.RadioButtonFor(m => m.TestableInQABool, "true", new { @onclick = "QaYesCode()" })
+            No: @Html.RadioButtonFor(m => m.TestableInQABool, "false", new { @onclick = "QaNoCode()" })
+        </span>
+    </div>
+
+
+
+    <!--QA Questions Section-->
+    <div id="QAsection" style="display:none">
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <!--QA Reason-->
+                <div class="form-group">
+                    <label class="control-label" for="QAReason" text="Reason">Reason</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QAReason)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QAReason, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QA IdentifyFailure-->
+                <div class="form-group">
+                    <label class="control-label" for="QAIdentifyFailure" text="Identify Failure">Identify Failure</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QAIdentifyFailure)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QAIdentifyFailure, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QA DataImpact-->
+                <div class="form-group">
+                    <label class="control-label" for="QADataImpact" text="Data Impact">Data Impact</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QADataImpact)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QADataImpact, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <!--QA Mitigation-->
+                <div class="form-group">
+                    <label class="control-label" for="QAMitigation" text="Mitigation">Mitigation</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QAMitigation)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QAMitigation, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QA FailureImpact-->
+                <div class="form-group">
+                    <label class="control-label" for="QAFailureImpact" text="Failure Impact">Failure Impact</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QAFailureImpact)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QAFailureImpact, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QA FailureResolution-->
+                <div class="form-group">
+                    <label class="control-label" for="QAFailureResolution" text="Failure Resolution">Failure Resolution</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QAFailureResolution)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QAFailureResolution, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div id="QTSQuestions" style="display:none;">
+
+    <!--A QTS field was left null-->
+    @if (ViewBag.QTSError != null && ViewBag.QTSError) {
+        <div class="alert alert-danger">
+            Please fill out <strong>all</strong> questions relating to QTS if you mark this application as not testable in QTS.
+        </div>
+
+    }
+
+    <!--Testable in QTS-->
+    <div class="form-group">
+        <div id="QA-label">Is this application testable in QTS?</div>
+        <span>
+            @*@Html.CheckBoxFor(m => m.TestableInQTSBool, new { @checked = true, @onchange = "QTSCheck()", id = "TestableInQTSBool" })*@
+            Yes: @Html.RadioButtonFor(m => m.TestableInQTSBool, "true", new { @onclick = "QTSYesCode()" })
+            No: @Html.RadioButtonFor(m => m.TestableInQTSBool, "false", new { @onclick = "QTSNoCode()" })
+        </span>
+    </div>
+
+
+    <!--QTS Questions Section-->
+    <div id="QTSsection" style="display:none">
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <!--QTS Reason-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSReason" text="Reason">Reason</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSReason)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSReason, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QTS IdentifyFailure-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSIdentifyFailure" text="Identify Failure">Identify Failure</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSIdentifyFailure)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSIdentifyFailure, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QTS DataImpact-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSDataImpact" text="Data Impact">Data Impact</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSDataImpact)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSDataImpact, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <!--QTS Mitigation-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSMitigation" text="Mitigation">Mitigation</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSMitigation)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSMitigation, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QTS FailureImpact-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSFailureImpact" text="Failure Impact">Failure Impact</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSFailureImpact)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSFailureImpact, "", new { @class = "text-danger" })
+                </div>
+
+                <!--QTS FailureResolution-->
+                <div class="form-group">
+                    <label class="control-label" for="QTSFailureResolution" text="Failure Resolution">Failure Resolution</label>
+                    <div class="input-icon right">
+
+                        @Html.TextAreaFor(model => model.QTSFailureResolution)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.QTSFailureResolution, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <!--Special Notes-->
+        <div class="form-group">
+            <label class="control-label" for="SpecialNotes" text=" Special Notes"> Special Notes</label>
+            <div class="input-icon right">
+
+                @Html.TextAreaFor(model => model.SpecialNotes)
+            </div>
+            @Html.ValidationMessageFor(model => model.SpecialNotes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!--Confirmation Email-->
+        <div class="form-group">
+            <label class="control-label" for="ConfirmationEmail" text="Confirmation Email will be sent to">Confirmation Email will be sent to</label>
+            <div class="input-icon right">
+                <i class="fa fa-user"></i>
+                @Html.EditorFor(model => model.ConfirmationEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@*<div class="form-group">
+        <label for="inputSubject" class="control-label">
+            Subject
+        </label>
+        <div class="input-icon right">
+            <i class="fa fa-tag"></i>
+            <input id="inputSubject" type="text" placeholder="" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputMessage" class="control-label">
+            Message
+        </label><textarea rows="5" class="form-control"></textarea>
+    </div>
+    <div class="form-group mbn">
+        <div class="checkbox">
+            <label>
+                <input tabindex="5" type="checkbox" />&nbsp; Send a copy to my e-mail address
+            </label>
+        </div>*@
+@*</div>*@

@@ -1,0 +1,52 @@
+﻿@model DevOpsPortal.Models.FullRequestViewModel
+@{
+    ViewBag.Title = "Full Request";
+}
+
+
+<link rel="stylesheet" href="~/styles/normalize.css" />
+<link rel="stylesheet" href="~/styles/InputField.css" />
+<link href="~/styles/FormStyle.css" rel="stylesheet" />
+<link href="~/styles/DatePicker/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="~/styles/DatePicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+
+
+
+<!--BEGIN CONTENT-->
+
+
+<div class="panel panel-lightblue" style="margin: 1%">
+    <div class="panel-heading">
+        App + SQL Deployment Request Form
+    </div>
+    <div class="panel-body pan">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-body pal">
+                <h2 align="center">Application Deployment</h2>
+                @Html.Partial("CodeDeployRequestPartialForFull", Model)
+
+                <hr />
+                <h2 align="center">SQL Deployment</h2>
+                @Html.Partial("DbDeployRequestPartialForFull", Model)
+
+
+            </div>
+            <div class="form-actions text-right pal">
+                <button type="submit" class="btn btn-lightblue">
+                    Submit
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+
+@*@section MyScripts{
+
+        <script src="~/script/bootstrap-datepicker.min.js"></script>
+        <script src="~/script/CodeDeployRequest.js"></script>
+        <script src="~/script/DBDeployRequest.js"></script>
+
+    }*@

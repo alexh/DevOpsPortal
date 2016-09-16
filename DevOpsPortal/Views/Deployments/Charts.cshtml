@@ -1,0 +1,538 @@
+﻿@model DevOpsPortal.Models.DeploymentChartsStats
+
+<head>
+    <title>Charts | Charts</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="~/styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/all.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/jquery.news-ticker.css">
+</head>
+
+<!--BEGIN CONTENT-->
+
+<div class="page-content">
+    <div id="tab-general">
+
+        <div class="row mbl">
+            <div class="col-lg-12">
+
+                <div class="col-md-12">
+                    <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-12">
+
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+
+
+                        <div class="portlet box">
+                            <div class="portlet-header">
+                                <div class="caption">Deployment Activity (All Time)</div>
+
+                            </div>
+                            <div class="portlet-body">
+                                <div id="activity" style="height:300%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <!--Counts-->
+                        <div id="count7" class="portlet box">
+                            <div class="portlet-header">
+                                <div class="caption">Total Deployments (Last 7 Days)</div>
+                                <a href="#stats" onclick="toggle_visibility('count7', 'count14');" class="fa fa-toggle-on pull-right"></a>
+                            </div>
+                            <div class="portlet-body">
+                                <h1 align="center" style="font-size: 300%">
+                                    @Model.TotalSuccessCount7
+                                </h1>
+                            </div>
+                        </div>
+                        <div id="count14" class="portlet box" style="display: none">
+                            <div class="portlet-header">
+                                <div class="caption">Total Deployments (Last 14 Days)</div>
+                                <a href="#stats" onclick="toggle_visibility('count7', 'count14');" class="fa fa-toggle-off pull-right"></a>
+                            </div>
+                            <div class="portlet-body">
+                                <h1 align="center" style="font-size: 300%">
+                                    @Model.TotalSuccessCount14
+                                </h1>
+                            </div>
+                        </div>
+                        <!--End Counts-->
+                        <!--Pies-->
+                        <!--Fix 45 width-->
+                        <div id="env14" class="portlet box" style="display: none">
+                            <div class="portlet-header">
+                                <div class="caption">Deployments By Environment (Last 14 Days)</div>
+                                <a href="#stats" onclick="toggle_visibility('env7', 'env14');" class="fa fa-toggle-off pull-right"></a>
+                            </div>
+                            <div id="env14" class="portlet-body">
+                                <div id="env-count-14" style="width:45%"></div>
+                            </div>
+                        </div>
+                        <div id="env7" class="portlet box">
+                            <div class="portlet-header">
+                                <div class="caption">Deployments By Environment (Last 7 Days)</div>
+                                <a href="#stats" onclick="toggle_visibility('env7', 'env14');" class="fa fa-toggle-on pull-right"></a>
+                            </div>
+                            <div class="portlet-body">
+                                <div id="env-count-7" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <!--End Pies-->
+                        <!--Line-->
+                        <div class="portlet box">
+                            <div class="portlet-header">
+                                <div class="caption">Deployments by Day (Last 7 Days)</div>
+                            </div>
+                            <div class="portlet-body">
+                                <div id="line" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <!--End Line-->
+                        <!--Rollbacks-->
+                        <div class="portlet box">
+                            <div class="portlet-header">
+                                <div class="caption">Version Rollbacks per Team (All Time)</div>
+                            </div>
+                            <div class="portlet-body">
+                                <div id="rollback" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <!--Rollbacks-->
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+<!--END CONTENT-->
+<!--Scripts-->
+<script src="~/script/jquery-1.10.2.min.js"></script>
+<script src="~/script/jquery-migrate-1.2.1.min.js">
+</script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+@*<script src="~/script/bootstrap.js"></script>*@
+
+<script type="text/javascript">
+    function toggle_visibility(id1, id2) {
+        var e1 = document.getElementById(id1);
+        var e2 = document.getElementById(id2);
+        if(e1.style.display == 'block'){
+            e1.style.display = 'none';
+            e2.style.display = 'block';
+        }
+
+        else {
+            e2.style.display = 'none';
+            e1.style.display = 'block';
+        }
+
+    }
+</script>
+
+<script>
+    $(function () {
+        var names = '@Model.NamesString'.split(',');
+        var ActProd = '@Model.ProductionString'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+        var ActQTS = '@Model.QTSString'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+        var ActQA = '@Model.QAString'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+        var ActBeta = '@Model.BetaString'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+
+        //Parsing Line Chart Data
+        var LineProduction = '@Model.ProductionLineData'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+        var LineQA = '@Model.QALineData'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+        var LineQTS = '@Model.QTSLineData'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+        var LineDev = '@Model.DevLineData'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+        var LineBeta = '@Model.BetaLineData'.split(',').map(function(item){
+            return parseInt(item, 10);
+        });
+
+        var envCount7 = new Highcharts.chart({
+            chart: {
+                renderTo: 'env-count-7',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:,.0f}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.y:,.0f}'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Deploys',
+                data: [
+                    { name: 'Production', color: '#16a6a9', y: @Model.ProductionCount7 },
+                    { name: 'QTS', color: '#24db8c', y: @Model.QTSCount7 },
+                    { name: 'QA', color: '#b0e0e6', y: @Model.QACount7 },
+                    { name: 'Dev', color: '#2670b5', y: @Model.DevCount7 },
+                      { name: 'Beta', color: '#606ed2', y: @Model.BetaCount7 }
+                ]
+            }]
+        });
+
+        var envCount14 = new Highcharts.chart({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                renderTo: 'env-count-14'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:,.0f}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.y:,.0f}'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Deploys',
+                data: [
+                    { name: 'Production', color: '#16a6a9', y: @Model.ProductionCount14 },
+                    { name: 'QTS', color: '#24db8c', y: @Model.QTSCount14 },
+                    { name: 'QA', color: '#b0e0e6', y: @Model.QACount14 },
+                    { name: 'Dev', color: '#2670b5', y: @Model.DevCount14 },
+                      { name: 'Beta', color: '#606ed2', y: @Model.BetaCount14 }
+                ]
+            }]
+        });
+        var weekday = new Array(7);
+        weekday[0]=  "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        var now = new Date();
+        var d1 = new Date();
+        d1.setDate(now.getDate() - 1);
+        var d2 = new Date();
+        d2.setDate(now.getDate() - 2);
+        var d3 = new Date();
+        d3.setDate(now.getDate() - 3);
+        var d4 = new Date();
+        d4.setDate(now.getDate() - 4);
+        var d5 = new Date();
+        d5.setDate(now.getDate() - 5);
+        var d6 = new Date();
+        d6.setDate(now.getDate() - 6);
+
+        var lines = new Highcharts.chart({
+            chart: {
+                type: 'spline',
+                renderTo: 'line'
+            },
+            title: {
+                text: ''
+            },
+
+            xAxis: {
+                categories: [ weekday[d6.getDay()], weekday[d5.getDay()],  weekday[d4.getDay()],  weekday[d3.getDay()],  weekday[d2.getDay()],  weekday[d1.getDay()], weekday[now.getDay()]]
+            },
+            yAxis: {
+                title: {
+                    text: 'Deployments'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value
+                    }
+                },
+                min: 0
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        radius: 4,
+                        lineColor: '#666666',
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'Dev',
+                    marker: {
+                        symbol: 'circle'
+                    },
+                    data: LineDev,
+                    color: '#2670b5'
+
+                },
+            {
+                name: 'QA',
+                marker: {
+                    symbol: 'circle'
+                },
+                data: LineQA,
+                color: '#b0e0e6'
+
+            }, {
+                name: 'QTS',
+                marker: {
+                    symbol: 'circle'
+                },
+                data: LineQTS,
+                color: '#24db8c'
+            },{
+                name: 'Beta',
+                marker: {
+                    symbol: 'circle'
+                },
+                data: LineBeta,
+                color: '#606ed2'
+            },{
+                name: 'Production',
+                marker: {
+                    symbol: 'circle'
+                },
+                data: LineProduction,
+                color: '#16a6a9'
+            },]
+        });
+
+
+        @*$('#env-times').highcharts({
+            chart: {
+                type: 'column',
+                margin: [ 50, 50, 40, 80]
+            },
+            plotOptions: {
+                column: {
+                    colorByPoint: true,
+                },
+                series: {
+                    pointPadding: .02,
+                    groupPadding: 0
+                }
+            },
+            colors: [
+                '#16a6a9',
+                '#24db8c',
+                '#606ed2',
+                 '#d1d242'
+            ],
+            title: {
+                text: '  '
+            },
+            xAxis: {
+                categories: [
+                    'Production',
+                    'QTS',
+                    'QA',
+                    'Beta',
+
+                ],
+                labels: {
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Duration (seconds)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.x +'</b><br/>'+
+                        'Average time: '+ Highcharts.numberFormat(this.y, 2, ".", "") +
+                        ' s';
+                }
+            },
+            series: [{
+                name: 'Time',
+                data: [@Model.ProductionTime, @Model.QTSTime, @Model.QATime, @Model.BetaTime],
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.2f}'
+
+                }
+            }]
+        });*@
+
+        var activity = new Highcharts.chart({
+            chart: {
+                type: 'bar',
+                renderTo: 'activity'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: names
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Deployments'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            series: [{
+                name: 'Production',
+                data: ActProd,
+                color: '#16a6a9'
+            }, {
+                name: 'Beta',
+                data: ActBeta,
+                color: '#606ed2'
+            }, {
+                name: 'QTS',
+                data: ActQTS,
+                color: '#24db8c'
+            }, {
+                name: 'QA',
+                data: ActQA,
+                color: '#b0e0e6'
+            }]
+        });
+        var rollArray = [];
+        @foreach (var d in Model.RollBackData) {
+            @:rollArray.push(@d);
+                                                                                                                                                                                                           }
+
+        var rollSeries = [];
+        for (var i = 0; i < rollArray.length; i++) {
+            rollSeries.push([i, rollArray[i]])
+        }
+        var rollback = new Highcharts.chart({
+            chart: {
+                type: 'column',
+                renderTo: 'rollback'
+            },
+
+            title: {
+                text: ''
+            },
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [
+                    "API", "BIAndReporting", "Communications", "Customer", "Engagement", "Integration", "InternalSolutions", "Shared", "Vehicle", "VehicleAndFinance", "VinLens", "Websites", "Workflow"
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rollbacks'
+                }
+            },
+
+            plotOptions: {
+                column: {
+                    pointPadding: 0.03,
+                    borderWidth: 0,
+                    groupPadding: 0,
+
+                }
+            },
+
+            series: [{
+                name: 'Rollbacks',
+                data: rollSeries,
+                color: '#bb4444'
+
+            }]
+        });
+    });
+</script>

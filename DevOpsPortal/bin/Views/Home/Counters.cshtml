@@ -1,0 +1,77 @@
+﻿@model DevOpsPortal.Models.CounterData
+
+<div id="sum_box" class="row mbl">
+    <div class="col-sm-6 col-md-4">
+        <div class="panel deploy db mbm">
+            <div class="panel-body">
+                <p class="icon">
+                    <i class="icon fa fa-magic"></i>
+                </p>
+                <h4 class="value">
+                    <span>@(Model.AutoCount)</span>
+                </h4>
+                <p class="description">
+                    Automated Application Deployments
+                </p>
+                <div class="progress progress-sm mbn">
+                    <div role="progressbar" aria-valuenow="@(Model.AutoCount)" aria-valuemin="0" aria-valuemax="@(Model.AppCount)"
+                         style="width: @(Model.TotalPercent)%;" class="progress-bar @((Model.TotalPercent < 40) ? "progress-bar-danger" : ((Model.TotalPercent < 60) ? "progress-bar-warning" : "progress-bar-success"))">
+                        <span class="sr-only">@(Model.TotalPercent)%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="panel server db mbm">
+            <div class="panel-body">
+                <p class="icon">
+                    <i class="icon fa fa-server"></i>
+                </p>
+                <h4 class="value">
+                    <span id="ServerCount">@Model.ServerCount</span>
+                </h4>
+                <p class="description">
+                    Servers in System
+                </p>
+                <div class="progress progress-sm mbn">
+                    <div role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 95%;" class="progress-bar progress-bar-success">
+                        <span class="sr-only">95% Complete (success)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+        <div class="panel app db mbm">
+            <div class="panel-body">
+                <p class="icon">
+                    <i class="icon fa fa-code"></i>
+                </p>
+                <h4 class="value">
+                    <span id="AppCount">@Model.AppCount</span>
+                </h4>
+                <p class="description">
+                    Distinct Applications
+                </p>
+                <div class="progress progress-sm mbn">
+                    <div role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 90%;" class="progress-bar progress-bar-success">
+                        <span class="sr-only"> 90% Complete (success)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var appCount = @(Model.AppCount);
+    var autoCount = @Model.AutoCount;
+    var serverCount = @(Model.ServerCount);
+</script>
+<script src="~/script/Counter.js"></script>

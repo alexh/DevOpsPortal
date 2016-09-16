@@ -1,0 +1,53 @@
+﻿body {
+}
+
+
+#QA-label {
+    font-size: 20px;
+    width: 10%;
+    margin-right: .7%;
+    display: inline;
+}
+
+.form-control {
+    border-color: #c7c7c7;
+}
+
+textarea {
+    font-family: inherit;
+    color: #000000;
+    width: 100%;
+    height: 15%;
+}
+
+#QATester {
+    height: 5%;
+    width: 49%;
+}
+
+.btn {
+    color: #ffffff;
+}
+
+.btn-violet {
+    background-color: #9351ad;
+    outline-color: #561a6d;
+}
+
+.btn-green {
+    background-color: #488c6c;
+    outline-color: #0f4029;
+}
+
+.btn-lightblue {
+    background-color: #61b6e7;
+    outline-color: #275a78;
+}
+
+.grey-text-box {
+    background-color: #eeeeee;
+}
+
+#AppButton {
+    margin-top: .5%;
+}

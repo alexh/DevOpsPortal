@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Environment Refresh";
+    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                @ViewBag.PageName
+            </div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="~/Home/Dashboard">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">EnvironmentRefresh</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">EnvironmentRefresh</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+
+    </div>
+    <!--END TITLE & BREADCRUMB PAGE-->
+    <!--BEGIN CONTENT-->
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                @{if (ViewBag.Submitted == false) {
+                        <div class="col-md-8">
+                            @using (Html.BeginForm("SubmitAction", "EnvironmentRefresh", FormMethod.Post, new { id = "target" })) {
+                                <div class="form-group input-group-sm">
+                                    <div id="environmentSelection">
+                                        <label for="environment">Environment</label>
+                                        @Html.DropDownList("environment", new SelectList(ViewBag.Environments, "Text", "Value"), new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                        <label for="refreshDate">Date</label>
+                                        <div class="form-group input-group-sm">
+                                            <input id="refreshDate" name="refreshDate" type="datetime-local" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nightTime">Is Nighttime required</label>
+                                        <div class="form-group input-group-sm">
+                                            @Html.CheckBox("nightTime")
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                            }
+                        </div>
+                            <div class="col-md-4">
+
+                            </div>
+                    } else {
+                        <div class="col-md-8">
+                            <h1>You refresh environment request for the @ViewBag.Environment has been submitted</h1>
+                        </div>
+                            <div class="col-md-4">
+
+                            </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#target").submit(function (event) {
+                event.preventDefault();
+                var r = confirm("Are you sure you want to refresh this environment from Production?");
+                if (r == false) {
+                    return false;
+                }
+
+            });
+        });
+    </script>
+}

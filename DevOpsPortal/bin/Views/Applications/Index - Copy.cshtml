@@ -1,0 +1,121 @@
+﻿@model IEnumerable<DevOpsPortal.Models.Application>
+@{
+    ViewBag.Title = "Applications";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tables | Tables</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/images/icons/favicon.ico">
+</head>
+<body>
+    <div>
+
+        <div id="page-wrapper">
+            <!--BEGIN TITLE & BREADCRUMB PAGE-->
+            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                <div class="page-header pull-left">
+                    <div class="page-title">
+                        Servers
+                    </div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a href="~/Home/Dashboard">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    <li class="hidden"><a href="#">Servers</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    <li class="active">Servers</li>
+                </ol>
+                <div class="clearfix">
+                </div>
+            </div>
+            <!--END TITLE & BREADCRUMB PAGE-->
+            <!--BEGIN CONTENT-->
+            <div class="page-content">
+                <div id="tab-general">
+
+                    <div class="panel panel-blue">
+                        <div class="panel-heading">Server List</div>
+                        <div class="panel-body">
+                            <table id="data" class="table table-hover-color">
+                                <thead>
+                                    <tr>
+                                        <th>Program</th>
+                                        <th>Environment</th>
+                                        <th>Machine</th>
+                                        <th>Team</th>
+                                        <th>Automated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model) {
+                                        <tr>
+                                            <td>
+                                                @Html.ActionLink(item.Program, "Details", new { id = item.App_ID })
+                                            </td>
+                                            @if (item.Environment != null) {
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Environment)
+                                                </td>
+                                            } else {
+                                                <td>
+                                                    @Html.Display("Unknown")
+                                                </td>
+                                            }
+                                            @if (item.Machine != null) {
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Machine)
+                                                </td>
+                                            } else {
+                                                <td>
+                                                    Unknown
+                                                </td>
+                                            }
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TeamName)
+                                            </td>
+                                            <td>
+                                                @item.IsAutomated
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--END CONTENT-->
+            <!--BEGIN FOOTER-->
+            @*<div id="footer">
+                <div class="copyright">
+                    <a href="http://themifycloud.com">2014 © KAdmin Responsive Multi-Purpose Template</a>
+                </div>
+            </div>*@
+            <!--END FOOTER-->
+        </div>
+        <!--END PAGE WRAPPER-->
+    </div>
+    </div>
+
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $('#data').DataTable({
+                    "lengthMenu": [[-1, 100, 250, 500], ["All", 100, 250, 500]]
+
+
+
+                });
+            });
+        </script>
+
+        <script type="text/javascript" src="~/Scripts/DataTable.js"></script>
+
+    }
+
+</body>
+</html>

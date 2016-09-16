@@ -1,0 +1,59 @@
+﻿;@model IEnumerable<DevOpsPortal.Models.User>
+@{
+    ViewBag.Title = "Lookup";
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Applications</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/images/icons/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="~/styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/all.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="~/styles/jquery.news-ticker.css">
+</head>
+<body>
+
+    <!--BEGIN CONTENT-->
+    <div class="page-content">
+        <div id="tab-general">
+
+            <div class="panel panel-grey">
+                <div class="panel-heading">User Lookup</div>
+                <div class="panel-body">
+                    <table id="data" class="table table-hover-color">
+                        <thead>
+                            <tr>
+                                @*<th>Details</th>*@
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Team</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/DataTable.js"></script>
+    <script src="~/script/Lookup.js"></script>
+
+
+</body>
+</html>

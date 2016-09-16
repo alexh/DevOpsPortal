@@ -1,0 +1,184 @@
+﻿@model DevOpsPortal.Models.User
+<head>
+    <link type="text/css" rel="stylesheet" href="~/styles/Account.css">
+</head>
+
+
+
+
+
+
+
+
+<h1 align="center">@Model.FirstName @Model.LastName </h1>
+
+<hr />
+<div class="partialContents" data-url="@Url.Action("ADAccount", "User")">
+    <span id="loading-container">
+        <img id="loading" src="~/images/icons/ApertureScience.gif" />
+    </span>
+
+    <h4 align="center"> Loading...</h4>
+</div>
+
+<div id="section-title">
+    Database Data <span>
+
+    </span>
+</div>
+<dl class="dl-horizontal">
+    <dt id="details">ID:</dt>
+    <dd id="details">@Model.User_ID</dd>
+    <dt id="details">Username:</dt>
+    <dd id="details">@Model.Username</dd>
+    <dt id="details">Team:</dt>
+    <dd id="details">@Model.Team</dd>
+    <dt id="details">Job Title:</dt>
+    <dd id="details">@Model.JobTitle</dd>
+    <dt id="details">Business Phone:</dt>
+    <dd id="details">@Model.BusinessPhone</dd>
+    <dt id="details">Extension:</dt>
+    <dd id="details">@Model.BusinessPhoneExtension</dd>
+
+    <dt id="details">Home Phone:</dt>
+    <dd id="details">@Model.HomePhone</dd>
+
+    <dt id="details">Mobile Phone</dt>
+    <dd id="details">@Model.MobilePhone</dd>
+
+    <dt id="details">Email</dt>
+    <dd id="details">@Model.Email</dd>
+
+    <dt id="details">Office Location</dt>
+    <dd id="details">@Model.OfficeLocation</dd>
+
+</dl>
+
+<div id="edit-button">
+    <a class="btn btn-primary" href="@Url.Action("Edit", "User")" role="button">Edit</a>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#data').DataTable({
+                "lengthMenu": [[-1, 100, 250, 500], ["All", 100, 250, 500]],
+                "ajax": {
+                    "url": "/Deployments/GetDeploymentStatusData/",
+                    "dataSrc": "",
+                },
+                "columns": [
+
+                     {
+                         data: 'ProjectName',
+                         render: function (data, type, full, meta) {
+                             return '<a  href="../Applications/Index/?p=' + data + '">' + data + '</a>';
+                         }
+                     },
+                     {
+                         data: 'DevReleaseDate',
+                         "render": function (data, type, row) {
+                             if (data == "1/1/2000 12:00:00 AM") {
+                                 return "";
+                             } else {
+                                 return row["DevRelease"] + "<hr id=\"bar\"/>" + data;
+                             }
+                         }, "orderable": false
+                     },
+                     { data: 'DevRelease', "visible": false },
+                     {
+                         data: 'QAReleaseDate',
+                         "render": function (data, type, row) {
+                             if (data == "1/1/2000 12:00:00 AM") {
+                                 return "";
+                             } else {
+                                 return row["QARelease"] + "<hr id=\"bar\"/>" + data;
+                             }
+                         }, "orderable": false
+                     },
+                     { data: 'QARelease', "visible": false },
+                      {
+                          data: 'QTSReleaseDate',
+                          "render": function (data, type, row) {
+                              if (data == "1/1/2000 12:00:00 AM") {
+                                  return "";
+                              } else {
+                                  return row["QTSRelease"] + "<hr id=\"bar\"/>" + data;
+                              }
+                          }, "orderable": false
+                      },
+                     { data: 'QTSRelease', "visible": false },
+                      {
+                          data: 'BetaReleaseDate',
+                          "render": function (data, type, row) {
+                              if (data == "1/1/2000 12:00:00 AM") {
+                                  return "";
+                              } else {
+                                  return row["BetaRelease"] + "<hr id=\"bar\"/>" + data;
+                              }
+                          }, "orderable": false
+
+                      },
+                     { data: 'BetaRelease', "visible": false },
+                      {
+                          data: 'ProductionReleaseDate',
+                          "render": function (data, type, row) {
+                              if (data == "1/1/2000 12:00:00 AM") {
+                                  return "";
+                              } else {
+                                  return row["ProductionRelease"] + "<hr id=\"bar\"/>" + data;
+                              }
+                          }, "orderable": false
+                      },
+                     { data: 'ProductionRelease', "visible": false }
+
+                ],
+
+            });
+        });
+
+
+    </script>
+
+    <script type="text/javascript" src="~/Scripts/DataTable.js"></script>
+    <script src="~/script/responsive-tabs.js"></script>
+    <script src="~/script/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/script/jquery-ui.js"></script>
+    <script src="~/script/bootstrap.min.js"></script>
+    <script src="~/script/bootstrap-hover-dropdown.js"></script>
+    <script src="~/script/html5shiv.js"></script>
+    <script src="~/script/respond.min.js"></script>
+    <script src="~/script/jquery.metisMenu.js"></script>
+    <script src="~/script/jquery.slimscroll.js"></script>
+    <script src="~/script/jquery.cookie.js"></script>
+    <script src="~/script/icheck.min.js"></script>
+    <script src="~/script/custom.min.js"></script>
+    <script src="~/script/jquery.news-ticker.js"></script>
+    <script src="~/script/jquery.menu.js"></script>
+    <script src="~/script/pace.min.js"></script>
+    <script src="~/script/holder.js"></script>
+    <script src="~/script/responsive-tabs.js"></script>
+    <script src="~/script/jquery.flot.js"></script>
+    <script src="~/script/jquery.flot.categories.js"></script>
+    <script src="~/script/jquery.flot.pie.js"></script>
+    <script src="~/script/jquery.flot.tooltip.js"></script>
+    <script src="~/script/jquery.flot.resize.js"></script>
+    <script src="~/script/jquery.flot.fillbetween.js"></script>
+    <script src="~/script/jquery.flot.stack.js"></script>
+    <script src="~/script/jquery.flot.spline.js"></script>
+    <script src="~/script/zabuto_calendar.min.js"></script>
+    <script src="~/script/index.js"></script>
+    <!--LOADING SCRIPTS FOR CHARTS-->
+    @*<script src="script/highcharts.js"></script>
+        <script src="script/data.js"></script>
+        <script src="script/drilldown.js"></script>
+        <script src="script/exporting.js"></script>
+        <script src="script/highcharts-more.js"></script>
+        <script src="script/charts-highchart-pie.js"></script>
+        <script src="script/charts-highchart-more.js"></script>*@
+    <!--CORE JAVASCRIPT-->
+    <script src="~/script/main.js"></script>
+    <script src="~/script/ProgressLoad.js"></script>
+
+}

@@ -1,0 +1,230 @@
+﻿@model DevOpsPortal.Models.DBDeployRequestViewModel
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+<!--Deployment Cycle-->
+<div class="form-group">
+    <div id="QA-label">What deployment cycle is this change for?</div>
+    <span>
+        Monthly: @Html.RadioButtonFor(m => m.DeploymentCycle, "Monthly")
+        Continuous: @Html.RadioButtonFor(m => m.DeploymentCycle, "Continuous", new { @checked = true })
+    </span>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!--User-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-user"></i>
+                @Html.HiddenFor(model => model.User, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.Editor("User", "Test Test", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.UserDisplayName } })
+            </div>
+            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+        </div>
+
+        <!--Team-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Team, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-users"></i>
+                @Html.DropDownListFor(m => m.Team, (SelectList) ViewBag.TeamSelectList, new { @class = "form-control", @onchange = "FillDropDowns()" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
+            <button type="button" id="AppButton" class="btn btn-lightblue btn-sm" onclick="AppButtonClicked()">View Request History</button>
+        </div>
+
+        <!--Environment-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Environment, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-server"></i>
+                @Html.DropDownListFor(m => m.Environment,
+                                new SelectList(Enumerable.Empty<SelectListItem>(), "EnvName", "EnvName"),
+                                "Select Environment",
+                                new { @class = "form-control", @onchange = "EnvUpdate()" })<SelectListItem>
+            </div>
+            @Html.ValidationMessageFor(model => model.Environment, "", new { @class = "text-danger" })
+        </div>
+
+
+
+        <!--Database Name-->
+        <div class="form-group">
+            <label class="control-label" for="DatabaseName" text="Database Name">Database Name</label>
+            <div class="input-icon right">
+                <i class="fa fa-database"></i>
+                @Html.EditorFor(model => model.DatabaseName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.DatabaseName, "", new { @class = "text-danger" })
+
+        </div>
+
+
+
+    </div>
+    <div class="col-md-6">
+
+
+        <!--Code Location-->
+        <div class="form-group">
+            <label class="control-label" for="CodeLocation" text="Code Location">Code Location</label>
+            <div class="input-icon right">
+                <i class="fa fa-map-pin"></i>
+                @Html.EditorFor(model => model.CodeLocation, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.CodeLocation, "", new { @class = "text-danger" })
+        </div>
+
+        <!--TFSWorkItems-->
+        <div class="form-group">
+            <label class="control-label" for="TFSWorkItems">TFS Work Items</label>
+            <div class="input-icon right">
+                <i class="fa fa-cube"></i>
+                @Html.EditorFor(model => model.TFSWorkItems, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.TFSWorkItems, "", new { @class = "text-danger" })
+        </div>
+
+        <!--ChangeSets-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Changesets, htmlAttributes: new { @class = "control-label" })
+            <div class="input-icon right">
+                <i class="fa fa-cube"></i>
+                @Html.EditorFor(model => model.Changesets, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.Changesets, "", new { @class = "text-danger" })
+        </div>
+
+        <!--Data Script Names-->
+        <div class="form-group">
+            <label class="control-label" for="DataScriptNames" text="Data Script Names">Data Script Names</label>
+            <div class="input-icon right">
+                <i class="fa fa-book"></i>
+                @Html.EditorFor(model => model.DataScriptNames, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.DataScriptNames, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+</div>
+
+<hr />
+
+<!--A QA field was left null-->
+@if (ViewBag.QAError != null && ViewBag.QAError) {
+    <div class="alert alert-danger">
+        Please fill out <strong>all</strong> questions relating to QA if you mark this application as not testable in QA.
+    </div>
+
+}
+
+<!--Testable in QA-->
+<div class="form-group">
+    <div id="QA-label">Is this SQL testable in QA?</div>
+    <span>
+        @*@Html.CheckBoxFor(m => m.TestableInQABool, new { @checked = true, @onchange = "QACheckDB()", id = "TestableInQABoolDB" })*@
+        Yes: @Html.RadioButtonFor(m => m.TestableInQABool, "true", new { @onclick = "QaYesDb()" })
+        No: @Html.RadioButtonFor(m => m.TestableInQABool, "false", new { @onclick = "QaNoDb()" })
+    </span>
+</div>
+
+<!--QA Tester-->
+<div class="form-group">
+    <label class="control-label" for="QATester" text="QA Tester">QA Tester</label>
+    <div class="input-icon right">
+        @Html.EditorFor(model => model.QATester, new { htmlAttributes = new { @class = "form-control", @id = "QAtester" } })
+    </div>
+    @Html.ValidationMessageFor(model => model.QATester, "", new { @class = "text-danger" })
+</div>
+
+
+<!--QA Questions Section-->
+<div id="QAsectionDB" style="display:none">
+
+
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <!--QA Reason-->
+            <div class="form-group">
+                <label class="control-label" for="QAReason" text="Reason">Reason</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QAReason)
+                </div>
+                @Html.ValidationMessageFor(model => model.QAReason, "", new { @class = "text-danger" })
+            </div>
+
+            <!--QA IdentifyFailure-->
+            <div class="form-group">
+                <label class="control-label" for="QAIdentifyFailure" text="Identify Failure">Identify Failure</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QAIdentifyFailure)
+                </div>
+                @Html.ValidationMessageFor(model => model.QAIdentifyFailure, "", new { @class = "text-danger" })
+            </div>
+
+            <!--QA DataImpact-->
+            <div class="form-group">
+                <label class="control-label" for="QADataImpact" text="Data Impact">Data Impact</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QADataImpact)
+                </div>
+                @Html.ValidationMessageFor(model => model.QADataImpact, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+
+            <!--QA Mitigation-->
+            <div class="form-group">
+                <label class="control-label" for="QAMitigation" text="Mitigation">Mitigation</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QAMitigation)
+                </div>
+                @Html.ValidationMessageFor(model => model.QAMitigation, "", new { @class = "text-danger" })
+            </div>
+
+            <!--QA FailureImpact-->
+            <div class="form-group">
+                <label class="control-label" for="QAFailureImpact" text="Failure Impact">Failure Impact</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QAFailureImpact)
+                </div>
+                @Html.ValidationMessageFor(model => model.QAFailureImpact, "", new { @class = "text-danger" })
+            </div>
+
+            <!--QA FailureResolution-->
+            <div class="form-group">
+                <label class="control-label" for="QAFailureResolution" text="Failure Resolution">Failure Resolution</label>
+                <div class="input-icon right">
+
+                    @Html.TextAreaFor(model => model.QAFailureResolution)
+                </div>
+                @Html.ValidationMessageFor(model => model.QAFailureResolution, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+<hr />
+
+
+
+
+

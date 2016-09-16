@@ -1,0 +1,49 @@
+﻿@model DevOpsPortal.Models.DBDeployRequestViewModel
+
+@{
+    ViewBag.Title = "SQL Deploy Request";
+}
+
+
+<link rel="stylesheet" href="~/styles/normalize.css" />
+<link rel="stylesheet" href="~/styles/InputField.css" />
+<link href="~/styles/FormStyle.css" rel="stylesheet" />
+<link href="~/styles/DatePicker/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="~/styles/DatePicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+
+
+
+<!--BEGIN CONTENT-->
+
+
+<div class="panel panel-lightblue" style="margin: 1%">
+    <div class="panel-heading">
+        SQL Only Deployment Request Form
+    </div>
+    <div class="panel-body pan">
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-body pal">
+
+                @Html.Partial("DbDeployRequestPartial", Model)
+
+
+            </div>
+            <div class="form-actions text-right pal">
+                <button type="submit" class="btn btn-lightblue">
+                    Submit
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+@section MyScripts{
+    <script src="~/script/bootstrap-datepicker.min.js"></script>
+    <script src="~/script/DeployRequest.js"></script>
+
+}

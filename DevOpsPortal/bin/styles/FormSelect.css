@@ -1,0 +1,124 @@
+﻿body {
+}
+
+
+.top-link {
+    text-align: center;
+    margin-top: 5%;
+    font-size: 200%;
+}
+
+.link {
+    margin-top: 3%;
+    font-size: 200%;
+}
+
+
+.no-access {
+    color: #e23e3e;
+}
+
+.dead {
+    color: #5a5a5a;
+}
+
+.access {
+    color: #1e1e1e;
+}
+
+a.access:hover {
+    color: #6599b7;
+}
+
+a.access {
+    color: #61b6e7;
+}
+
+span.badge.badge-important {
+    background-color: #e23e3e;
+}
+
+
+ul li {
+    list-style: none;
+}
+
+    ul li > label:after, ul li > label:after {
+        content: ":";
+    }
+
+label {
+    /*display: inline-block;
+    text-align: right;
+    width: 200px;
+    font-size: 13px;
+    line-height: 16px;*/
+    /*
+    float: left;
+    
+   */
+}
+
+input, select {
+    display: inline-block;
+    background-color: #fff;
+    border: solid 1px #BBC5CE;
+    margin: 0;
+    padding: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+#personalinfo {
+}
+
+#Header {
+    text-align: center;
+    font-size: 150%;
+    width: 70%;
+    margin: 0 auto;
+}
+
+option {
+    color: #272727;
+}
+
+    option:disabled {
+        color: #bfbfbf;
+    }
+
+
+#partialPlaceHolder {
+}
+
+#NoSelected {
+    width: 25%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10%;
+    font-size: 150%;
+}
+
+#NoSelectedIcon {
+    font-size: 800%;
+}
+
+#AppButton {
+    display: none;
+}
+
+table {
+    width: 100%;
+}
+
+#HistoryHideButton {
+    height: 25px;
+    padding-bottom: 20px;
+    margin-left: 40px;
+}
+
+#CopySuccess {
+    margin-left: 1%;
+    margin-right: 1%;
+}

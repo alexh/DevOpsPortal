@@ -1,0 +1,67 @@
+﻿@model DevOpsPortal.Models.FormSelectViewModel
+
+@{
+    ViewBag.Title = "Form Select";
+}
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<link href="~/styles/FormSelect.css" rel="stylesheet" />
+<link href="~/styles/FormStyle.css" rel="stylesheet" />
+
+<div id="Header" style="margin-top: 15px;">
+    <label for="Form">Form Selection:</label>
+    <select id="FormSelectDropDown">
+        <option selected disabled>Choose here</option>
+        @if (Model.CanAccessDeploy) {
+            <option>Deployment (App Only)</option>
+            <option>Deployment (SQL Only)</option>
+            <option>Deployment (App + SQL)</option>
+        }
+        <option>General Help Request</option>
+        <option disabled>CI/CD Automation (Coming Soon)</option>
+    </select>
+</div>
+
+
+<hr />
+
+<div id="RequestHistory" style="margin: 1%; display:none">
+    <div class="panel panel-mygrey">
+        <div class="panel-heading" id="RequestHeading">
+            <span id="RequestHistoryHeadingPrefix"></span>
+            Request History
+            <div class="pull-right">
+                <button class="btn btn-mygrey btn-sm" id="HistoryHideButton" onclick="HideHistoryButtonClicked()">Hide</button>
+            </div>
+            <div id="CurrentDateTime" class="pull-right"></div>
+        </div>
+        <div class="panel-body">
+            <table id="data" class="table"></table>
+        </div>
+    </div>
+
+</div>
+<div id="CopySuccess"></div>
+<div id="partialPlaceHolder">
+
+
+
+    <div id="NoSelected">
+        <div class="pull-left">
+            <i class="fa fa-file-text-o" id="NoSelectedIcon" aria-hidden="true"></i>
+        </div>
+        <div class="pull-right">
+            Please select a form.
+        </div>
+    </div>
+
+</div>
+
+@section MyScripts{
+    <script src="~/Scripts/DataTable.js"></script>
+    <script src="~/script/RequestHistory.js"></script>
+    <script src="~/script/bootstrap-datepicker.min.js"></script>
+    <script src="~/script/DeployRequest.js"></script>
+    <script src="~/script/FormSelect.js"></script>
+}
+

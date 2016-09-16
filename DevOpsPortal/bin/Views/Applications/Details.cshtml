@@ -1,0 +1,179 @@
+﻿@model DevOpsPortal.Models.Application
+
+@{
+    ViewBag.Title = "Details";
+}
+<div id="page-wrapper">
+    <div class="page-content">
+        <div id="tab-general">
+            <div class="row mbl">
+                <h4>
+                    @Html.DisplayFor(model => model.Program)
+                    - @Model.Machine
+                    - Details
+                </h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Environment)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Environment)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Program)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Program)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Machine)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Machine)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.BaseFolder)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.BaseFolder)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Instances)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Instances)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.DeploymentServer)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.DeploymentServer)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.ServiceScheduled)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.ServiceScheduled)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Team)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Team)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.TeamName)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.TeamName)
+                    </dd>
+
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.IsAutomated)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.IsAutomated
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.JenkinsBuild)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.JenkinsBuild
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.OctopusDeploy)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.OctopusDeploy
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.ConfigStructure)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.ConfigStructure
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.SolutionStructure)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.SolutionStructure
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.JenkinsName)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.JenkinsName)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.OctopusName)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.OctopusName)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.ApplicationTypeId)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.ApplicationTypeId)
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Sunsetted)
+                    </dt>
+
+                    <dd id="details">
+                        @Model.Sunsetted
+                    </dd>
+
+                    <dt id="details">
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </dt>
+
+                    <dd id="details">
+                        @Html.DisplayFor(model => model.Comments)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Back to List", "Index", new { id = 1 }, new { @class = "btn btn-primary" })
+            </p>
+
+        </div>
+    </div>
+</div>
+</div>

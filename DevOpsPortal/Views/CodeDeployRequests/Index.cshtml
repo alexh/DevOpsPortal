@@ -1,0 +1,153 @@
+﻿@model IEnumerable<DevOpsPortal.Models.CodeDeployRequest>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DBDeployRequestID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Environment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeployType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JenkinsBuild)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DINumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TFSWorkItems)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeployDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestableInQA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QAReason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QAMitigation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QAIdentifyFailure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QAFailureImpact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QADataImpact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QAFailureResolution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QATester)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConfirmationEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmissionTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DBDeployRequestID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Environment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeployType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JenkinsBuild)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DINumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TFSWorkItems)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeployDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestableInQA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QAReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QAMitigation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QAIdentifyFailure)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QAFailureImpact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QADataImpact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QAFailureResolution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QATester)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConfirmationEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubmissionTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CodeDeployRequestID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CodeDeployRequestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CodeDeployRequestID })
+        </td>
+    </tr>
+}
+
+</table>

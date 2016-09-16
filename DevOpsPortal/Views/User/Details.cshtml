@@ -1,0 +1,22 @@
+﻿
+@model DevOpsPortal.Models.ADUserData
+    <head>
+        <link type="text/css" rel="stylesheet" href="~/styles/Account.css">
+    </head>
+
+
+
+
+
+
+
+
+
+    <h1 align="center">@Model.DisplayName</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt id="details">Username:</dt>
+        <dd id="details">@Model.Name</dd>
+        <dt id="details">Email:</dt>
+        <dd id="details"><a href="mailto:@Model.EmailAddress">@Model.EmailAddress</a></dd>
+    </dl>

@@ -1,0 +1,128 @@
+﻿@model DevOpsPortal.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+<head>
+    <title>Details</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="~/images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images/icons/favicon-114x114.png">
+    <link type="text/css" rel="stylesheet" href="~/styles/main.css">
+</head>
+
+<h2 align="center">Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.Team)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.Team)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.JobTitle)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.BusinessPhone)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.BusinessPhone)
+        </dd>
+
+        <dt id="details">
+            Extension
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.BusinessPhoneExtension)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.HomePhone)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.HomePhone)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.MobilePhone)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.MobilePhone)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt id="details">
+            @Html.DisplayNameFor(model => model.OfficeLocation)
+        </dt>
+
+        <dd id="details">
+            @Html.DisplayFor(model => model.OfficeLocation)
+        </dd>
+
+    </dl>
+</div>

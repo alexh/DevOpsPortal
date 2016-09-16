@@ -1,0 +1,93 @@
+﻿
+@model DevOpsPortal.Models.GeneralRequestViewModel
+@{
+    ViewBag.Title = "General Request";
+    Layout = "";
+}
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<link href="~/styles/FormStyle.css" rel="stylesheet" />
+
+
+<div class="panel panel-lightblue" style="margin: 4%">
+    <div class="panel-heading">
+        General Request Form
+    </div>
+    <div class="panel-body pan">
+        @using (Html.BeginForm("General", "Form", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-body pal">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+
+
+                        <!--User-->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-icon right">
+                                <i class="fa fa-user"></i>
+                                @Html.HiddenFor(model => model.User, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.Editor("User", "Test Test", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.UserDisplayName } })
+                            </div>
+                        </div>
+
+                        <!--Team-->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Team, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-icon right">
+                                <i class="fa fa-users"></i>
+                                @Html.DropDownListFor(m => m.Team, (SelectList) ViewBag.TeamSelectList, new { @class = "form-control", @onchange = "FillDropDowns()" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!--Notes-->
+                        <div class="form-group">
+                            <label class="control-label" for="Notes" text="Notes">Notes</label>
+                            <div class="input-icon right">
+
+                                @Html.TextAreaFor(model => model.Notes)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <!--Attachment-->
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Attachment)
+                                @Html.TextBoxFor(x => x.Attachment, new { type = "file" })
+                                @Html.ValidationMessageFor(x => x.Attachment)
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr />
+
+
+
+
+
+
+
+
+            </div>
+            <div class="form-actions text-right pal">
+                <button type="submit" class="btn btn-lightblue">
+                    Submit
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section MyScripts {
+
+
+}

@@ -1,0 +1,37 @@
+﻿
+<html>
+<head>
+    <script src="~/script/jquery-1.10.2.min.js"></script>
+    <script src="~/script/jquery-migrate-1.2.1.min.js">
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+</head>
+<body>
+    <!-- Deployment Charts-->
+    <h3 align="center">
+        Deployment Statistics
+    </h3>
+    <hr />
+    <div class="partialContents" data-url="@Url.Action("Charts", "Deployments")">
+        <span id="loading-container">
+            <img id="loading" src="~/images/icons/ApertureScience.gif" />
+        </span>
+
+        <h4 align="center"> Loading...</h4>
+    </div>
+    <hr />
+    <!-- End Deployment Charts-->
+
+    @section Scripts{
+
+
+
+        <script src="~/script/ProgressLoad.js"></script>
+
+
+    }
+</body>
+</html>
+

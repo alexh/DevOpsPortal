@@ -1,0 +1,184 @@
+﻿@model DevOpsPortal.Models.Application
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Environment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Environment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Program)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Machine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Machine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseFolder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseFolder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeploymentServer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeploymentServer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceScheduled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceScheduled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Column9)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Column9)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAutomated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAutomated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JenkinsBuild)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JenkinsBuild)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OctopusDeploy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OctopusDeploy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConfigStructure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConfigStructure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SolutionStructure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SolutionStructure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JenkinsName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JenkinsName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OctopusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OctopusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sunsetted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sunsetted)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

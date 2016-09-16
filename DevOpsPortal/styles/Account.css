@@ -1,0 +1,18 @@
+﻿body {
+    color: #414141;
+}
+
+a {
+    color: #000000;
+}
+
+#section-title {
+    font-size: 150%;
+    padding-left: 4%;
+    padding-bottom: .5%;
+}
+
+#edit-button {
+    padding-left: 6%;
+    font-family: 'Open Sans', sans-serif;
+}
